@@ -65,26 +65,9 @@
 // *****************************************************************************
 // *****************************************************************************
 // ADC MODULE Related Definitions
-#define MC_ADCBUF_VDC         (int16_t)(ADCBUF12 >> 1)
-        
-       
-        
-#define MC1_ADCBUF_IPHASE1    -ADCBUF0
-#define MC1_ADCBUF_IPHASE2    -ADCBUF1
-//#define MC1_ADCBUF_IBUS       ADCBUF15
-//#define MC1_ADCBUF_POT        (int16_t)(ADCBUF15 >> 1)
-
-#define ADCBUF_PFC_VAC      ADCBUF2
-#define ADCBUF_PFC_IPH      ADCBUF3  
-        
-#define MC1_ADC_INTERRUPT   _ADCAN1Interrupt 
-        
-
-        
-#define MC1_EnableADCInterrupt()   _ADCAN1IE = 1
-#define MC1_DisableADCInterrupt()  _ADCAN1IE = 0
-#define MC1_ClearADCIF()           _ADCAN1IF = 0
-#define MC1_ClearADCIF_ReadADCBUF() ADCBUF1
+#define ADCBUF_PFC_VDC      (int16_t)(ADCBUF12 >> 1)
+#define ADCBUF_PFC_VAC      (int16_t)ADCBUF2
+#define ADCBUF_PFC_IPH      (int16_t)ADCBUF3  
         
 #define EnablePFCADCInterrupt()   _ADCAN12IE = 1
 #define DisablePFCADCInterrupt()  _ADCAN12IE = 0        

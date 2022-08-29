@@ -157,59 +157,6 @@ void MapGPIOHWFunction(void)
 {
     
     /* ANALOG SIGNALS */
-
-    // Configure Port pins for Motor Current Sensing
-    
-#ifdef INTERNAL_OPAMP_PIM
-    // Ib Out
-    ANSELBbits.ANSELB2 = 1;
-    TRISBbits.TRISB2 = 1;   // Pin 25: OA2OUT/AN1/AN7/CMP1D/RP34/INT0/RB2
-    
-    //Ib- PIM:66
-    ANSELBbits.ANSELB3 = 1;
-    TRISBbits.TRISB3 = 1;   //Pin 26: PGD2/OA2IN-/AN8/RP35/RB3
-    
-    //Ib+ PIM:73
-    ANSELBbits.ANSELB4 = 1;
-    TRISBbits.TRISB4 = 1;   //Pin 27: PGC2/OA2IN+/RP36/RB4
-    
-    //Ia Out
-    ANSELAbits.ANSELA0 = 1;
-    TRISAbits.TRISA0 = 1;   //Pin 08: OA1OUT/AN0/CMP1A/IBIAS0/RA0
-    
-    //Ia- PIM:66
-    ANSELAbits.ANSELA1 = 1;
-    TRISAbits.TRISA1 = 1;   //Pin 09: OA1IN-/RA1
-    
-    //Ia+ PIM:74
-    ANSELAbits.ANSELA2 = 1;
-    TRISAbits.TRISA2 = 1;   //Pin 10: OA1IN+/AN9/RA2
-    
-    //Op-Amp Configuration
-    AMPCON1Hbits.NCHDIS2 = 0;    //Wide input range for Op Amp #2
-    AMPCON1Lbits.AMPEN2 = 1;     //Enables Op Amp #2
-      
-    AMPCON1Hbits.NCHDIS1 = 0;    //Wide input range for Op Amp #1
-    AMPCON1Lbits.AMPEN1 = 1;     //Enables Op Amp #1
-    
-    AMPCON1Lbits.AMPON = 1;      //Enables op amp modules if their respective AMPENx bits are also asserted
-    
-#else
-    //Amplified Ib PIM:21
-    ANSELBbits.ANSELB2 = 1;
-    TRISBbits.TRISB2 = 1;   // Pin 25: OA2OUT/AN1/AN7/CMP1D/RP34/INT0/RB2
-    
-    //Amplified Ia PIM:22
-    ANSELAbits.ANSELA0 = 1;
-    TRISAbits.TRISA0 = 1;   //Pin 08: OA1OUT/AN0/CMP1A/IBIAS0/RA0
-    
-#endif
-    
-    // Potentiometer #1 input - used as Speed Reference
-    // POT1 : PIM #32
-    ANSELCbits.ANSELC3 = 1;
-    TRISCbits.TRISC3 = 1;   // PIN20: AN15/IBIAS2/RP51/RC3
-    
     //IPFC : PIM#25
     ANSELAbits.ANSELA3 = 1;
     TRISAbits.TRISA3 = 1;//PIN11: DACOUT/AN3/CMP1C/RA3
@@ -221,34 +168,13 @@ void MapGPIOHWFunction(void)
     //vdc: PIM#35
     ANSELCbits.ANSELC0 = 1;
     TRISCbits.TRISC0 = 1;//PIN7 :AN12/RP48/RC0
-    
-    /* Digital SIGNALS */   
-    // DIGITAL INPUT/OUTPUT PINS
-    
-    // Inverter Control - PWM Outputs
-    // PWM1L : PIM #93  RP47/PWM1L/RB15
-    // PWM1H : PIM #94  RP46/PWM1H/RB14
-    // PWM2L : PIM #98  RP45/PWM2L/RB13
-    // PWM2H : PIM #99  TDI/RP44/PWM2H/RB12
-    // PWM3L : PIM #100 TCK/RP43/PWM3L/RB11
-    // PWM3H : PIM #03  TMS/RP42/PWM3H/RB10
-    TRISBbits.TRISB14 = 0 ;          
-    TRISBbits.TRISB15 = 0 ;         
-    TRISBbits.TRISB12 = 0 ;          
-    TRISBbits.TRISB13 = 0 ;           
-    TRISBbits.TRISB10 = 0 ;          
-    TRISBbits.TRISB11 = 0 ;    
-    
+
     //PFC_PWM : PIM #78 RP58/RC10 
     _RP58R  = 0b100011 ; //  RP58 pin to PWM4L function (ie. 35)
     
     //PFC Enable PIN
     TRISCbits.TRISC6 = 0;  //PIM 19, PIN 17 : IBIAS1/RP54/RC6
             
-    // FAULT Pins
-    // Motor Control FAULT : PIM #18
-    TRISDbits.TRISD8 = 1;           // RP72/PCI19/RD8
-
     // Debug LEDs
     // LED2 : PIM #01
     TRISCbits.TRISC13 = 0;           // PIN:4 - RC13

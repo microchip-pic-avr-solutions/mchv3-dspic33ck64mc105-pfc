@@ -66,40 +66,11 @@
 // Section: Constants
 // *****************************************************************************
 // *****************************************************************************
-// OSCILLATOR Related Definitions
-
-// MC PWM MODULE Related Definitions        
-#define MC1_PWM_PDC1      PG1DC
-#define MC1_PWM_PDC2      PG2DC
-#define MC1_PWM_PDC3      PG3DC
 
 #define PFC_PWM_PDC PG4DC        
-/* Specify PWM Frequency in Hertz */
-#define PWMFREQUENCY_HZ         20000
-/* Specify dead time in micro seconds */
-#define DEADTIME_MICROSEC       2.0
-/* Specify PWM Period in seconds, (1/ PWMFREQUENCY_HZ) */
-#define LOOPTIME_SEC            0.00005
-/* Specify PWM Period in micro seconds */
-#define LOOPTIME_MICROSEC       50
-        
-// Specify bootstrap charging time in Seconds (mention at least 10mSecs)
-#define BOOTSTRAP_CHARGING_TIME_SECS 0.01
-  
-// Calculate Bootstrap charging time in number of PWM Half Cycles
-#define BOOTSTRAP_CHARGING_COUNTS (uint16_t)((BOOTSTRAP_CHARGING_TIME_SECS/LOOPTIME_SEC )* 2)
-        
+ 
 // Definition to enable or disable PWM Fault
 #undef ENABLE_PWM_FAULT
-        
-#define DDEADTIME               (uint16_t)(DEADTIME_MICROSEC*FOSC_MHZ)
-// loop time in terms of PWM clock period
-#define LOOPTIME_TCY            (uint16_t)(((LOOPTIME_MICROSEC*FOSC_MHZ)/2)-1)
-
-/* Specify ADC Triggering Point w.r.t PWM Output for sensing Motor Currents */
-#define ADC_SAMPLING_POINT      0x0000
-        
-#define MIN_DUTY            0x0000
          
 /** PFC Period ,Duty related definitions */
 #define PFC_PWMFREQUENCY_HZ 80000        
@@ -111,13 +82,7 @@
 #define PFC_MAX_DUTY_PU        0.9
 /* Maximum duty cycle in terms of PWM period */
 #define PFC_MAX_DUTY            (uint16_t)(PFC_MAX_DUTY_PU*PFC_LOOPTIME_TCY)
- /*Mention value of PWM Counter value at which MCPWM will be synchronized with PFC PWM*/       
-#define PFC_Sync_MC_Value     32768+ PFC_MAX_DUTY 
-        
-/* Specify Overrides for PWM TOP and BOTTOM ON */
-#define PWM_TOP_ON  0x3800
-#define PWM_BOT_ON  0x3400
-#define PWM_ALL_OFF 0x3000        
+           
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines

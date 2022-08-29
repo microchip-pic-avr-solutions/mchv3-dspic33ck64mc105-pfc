@@ -57,9 +57,7 @@
 #include "board_service.h"
 
 #include "diagnostics/diagnostics.h"
-#include "diagnostics/diagnostics _debu.h"
 
-#include "mc1_service.h"
 #include "pfc.h"
 
 
@@ -67,15 +65,8 @@
 
 // <editor-fold defaultstate="collapsed" desc=" Global Variables ">
 
-int16_t PFC_Sample_Counter=0;
-int16_t runCmdMC1, qTargetVelocityMC1;
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc=" Function Declarations ">
-
-void InrushRelayOn(void);
-
-// </editor-fold>
 /**
 * <B> Function: int main (void)  </B>
 *
@@ -90,16 +81,10 @@ int main (void)
 #ifdef ENABLE_DIAGNOSTICS
     DiagnosticsInit();
 #endif
-    DiagnosticsDebugInit();
     HAL_InitPeripherals();
 
-    MCAPP_MC1ServiceInit();
     LED1 = 1;
-//    InrushRelayOn();
     PFC_Initialize();
-    HAL_ResetPeripherals();
-    qTargetVelocityMC1 = 8000;
-    runCmdMC1  = 0;
     while(1)
     {
         
@@ -107,34 +92,18 @@ int main (void)
         DiagnosticsStepMain();
 #endif
         BoardService();
+        if(IsPressed_Button1())
+        {
             
-            if(IsPressed_Button1())
-            {
-                if(runCmdMC1 == 1)
-                {
-                    runCmdMC1 = 0;
-                }
-                else
-                {
-                    runCmdMC1 = 1;
-                }
-
-            }
+        }
     }
 }
-
-
 
 void __attribute__((__interrupt__,__auto_psv__)) _T1Interrupt (void)
 {
     #ifdef ENABLE_DIAGNOSTICS
         DiagnosticsStepIsr();
     #endif
-    DiagnosticsDebugStepIsr();
-//     runCmdMC1  = 1;
-//     qTargetVelocityMC1 = 8000;//
-    MCAPP_MC1GetTargetVelocity();
-    MCAPP_MC1InputBufferSet(runCmdMC1, qTargetVelocityMC1);
     BoardServiceStepIsr();
     TIMER1_InterruptFlagClear();
 }
@@ -142,20 +111,12 @@ void __attribute__((__interrupt__,no_auto_psv)) _PFC_ADCInterrupt()
 {    
     /** Load ADC Buffer data to respective variables */
     /*Converting dcVoltage from 0 to 65535 to 0 to 32767*/
-    pfcMeasured.dcVoltage = (int16_t)(MC_ADCBUF_VDC);
+    pfcMeasured.dcVoltage = ADCBUF_PFC_VDC;
     
-    pfcMeasured.acVoltage = (int16_t)(ADCBUF_PFC_VAC);
+    pfcMeasured.acVoltage = ADCBUF_PFC_VAC;
         
     /** Read PFC Phase current */
-    pfcMeasured.current = (int16_t)(ADCBUF_PFC_IPH);
-    
-    PFC_Sample_Counter++;
-    if(PFC_Sample_Counter>=4)
-    {
-        PFC_Sample_Counter = 0;
-//        HAL_PFCADCSwitchChannels();
-    }    
-            
+    pfcMeasured.current = ADCBUF_PFC_IPH;     
             
     PFC_ControlLoopMain();
 #ifdef ENABLE_PFC
@@ -167,9 +128,3 @@ void __attribute__((__interrupt__,no_auto_psv)) _PFC_ADCInterrupt()
 #endif    
     ClearPFCADCIF();
 }
-
-//void InrushRelayOn(void)
-//{
-//    __delay_ms(500);     //Delay in ms
-//    INRUSH_RELAY = 1;    //Turns on the relay
-//}

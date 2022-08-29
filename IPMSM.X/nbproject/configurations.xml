@@ -4,25 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="compressor" displayName="compressor" projectFiles="true">
-        <itemPath>../compressor/compressor.h</itemPath>
-        <itemPath>../compressor/compressor_types.h</itemPath>
-        <itemPath>../compressor/torque_comp.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="diagnostics" displayName="diagnostics" projectFiles="true">
         <itemPath>../diagnostics/diagnostics.h</itemPath>
-        <itemPath>../diagnostics/diagnostics _debu.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="foc" displayName="foc" projectFiles="true">
-        <itemPath>../foc/estim_atpll.h</itemPath>
-        <itemPath>../foc/estim_interface.h</itemPath>
-        <itemPath>../foc/foc.h</itemPath>
-        <itemPath>../foc/foc_control_types.h</itemPath>
-        <itemPath>../foc/foc_types.h</itemPath>
-        <itemPath>../foc/general.h</itemPath>
-        <itemPath>../foc/pi.h</itemPath>
-        <itemPath>../foc/stall_detect.h</itemPath>
-        <itemPath>../foc/id_ref.h</itemPath>
       </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
         <itemPath>../hal/adc.h</itemPath>
@@ -34,28 +17,12 @@
         <itemPath>../hal/uart1.h</itemPath>
         <itemPath>../hal/timer1.h</itemPath>
         <itemPath>../hal/measure.h</itemPath>
-        <itemPath>../hal/pim_select.h</itemPath>
-        <itemPath>../hal/uart2.h</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
-        <logicalFolder name="motor_control"
-                       displayName="motor_control"
-                       projectFiles="true">
-          <itemPath>../lib/motor_control/motor_control_declarations.h</itemPath>
-          <itemPath>../lib/motor_control/motor_control_mapping.h</itemPath>
-          <itemPath>../lib/motor_control/motor_control_types.h</itemPath>
-          <itemPath>../lib/motor_control/motor_control.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="x2c_scope" displayName="x2c_scope" projectFiles="true">
           <itemPath>../lib/x2c_scope/X2CScope.h</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../mc1_init.h</itemPath>
-      <itemPath>../mc1_user_params.h</itemPath>
-      <itemPath>../mc1_calc_params.h</itemPath>
-      <itemPath>../mc1_service.h</itemPath>
-      <itemPath>../mc_app_types.h</itemPath>
-      <itemPath>../motor_params.h</itemPath>
       <itemPath>../pfc.h</itemPath>
       <itemPath>../pfc_measure.h</itemPath>
       <itemPath>../pfc_userparams.h</itemPath>
@@ -69,19 +36,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="compressor" displayName="compressor" projectFiles="true">
-        <itemPath>../compressor/compressor.c</itemPath>
-        <itemPath>../compressor/torque_comp.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="diagnostics" displayName="diagnostics" projectFiles="true">
-        <itemPath>../diagnostics/diagnostics_debug.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="foc" displayName="foc" projectFiles="true">
-        <itemPath>../foc/estim_atpll.c</itemPath>
-        <itemPath>../foc/foc.c</itemPath>
-        <itemPath>../foc/pi.c</itemPath>
-        <itemPath>../foc/stall_detect.c</itemPath>
-        <itemPath>../foc/id_ref.c</itemPath>
+        <itemPath>../diagnostics/diagnostics_x2cscope.c</itemPath>
       </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
         <itemPath>../hal/adc.c</itemPath>
@@ -92,40 +48,17 @@
         <itemPath>../hal/uart1.c</itemPath>
         <itemPath>../hal/timer1.c</itemPath>
         <itemPath>../hal/measure.c</itemPath>
-        <itemPath>../hal/uart2.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="lib" displayName="lib" projectFiles="true">
-        <logicalFolder name="motor_control"
-                       displayName="motor_control"
-                       projectFiles="true">
-          <itemPath>../lib/motor_control/mc_clarke_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_invclarke_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_invpark_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_park_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_piupdate_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_sinecos_ram_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_sinetable_flash_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_sinetable_ram_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_svgen_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_invclarke_NoAccum.s</itemPath>
-          <itemPath>../lib/motor_control/mc_invclarke_swapped_input_dspic.s</itemPath>
-          <itemPath>../lib/motor_control/mc_svgen_conven_dspic.s</itemPath>
-        </logicalFolder>
       </logicalFolder>
       <itemPath>../main.c</itemPath>
-      <itemPath>../mc1_init.c</itemPath>
       <itemPath>../traps.c</itemPath>
-      <itemPath>../mc1_service.c</itemPath>
       <itemPath>../pfc.c</itemPath>
       <itemPath>../pfc_measure.c</itemPath>
       <itemPath>../pfc_pi.s</itemPath>
-      <itemPath>../diagnostics_x2cscope.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>MyConfig.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -142,11 +75,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PKOBSKDEPlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.70</languageToolchainVersion>
+        <languageToolchainVersion>2.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="dsPIC33CK-MC_DFP" vendor="Microchip" version="1.3.56"/>
+        <pack name="dsPIC33CK-MC_DFP" vendor="Microchip" version="1.4.92"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -208,7 +141,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="expand-pragma-config" value="false"/>
         <property key="extra-include-directories"
-                  value="..;..\lib\motor_control;..\diagnostics;..\hal;..\lib\x2c_scope;..\compressor;..\foc;..\generic_load;..\washing_machine;..\fan"/>
+                  value="..;..\diagnostics;..\hal;..\lib\x2c_scope"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
@@ -239,8 +172,7 @@
       <C30-AS>
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
-        <property key="extra-include-directories-for-assembler"
-                  value="..;..\lib\motor_control"/>
+        <property key="extra-include-directories-for-assembler" value=".."/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="keep-locals" value="false"/>
@@ -252,7 +184,7 @@
         <property key="oXC16asm-list-to-file" value="false"/>
         <property key="omit-debug-dirs" value="false"/>
         <property key="omit-forms" value="false"/>
-        <property key="preprocessor-macros" value="MCLV2"/>
+        <property key="preprocessor-macros" value=""/>
         <property key="relax" value="false"/>
         <property key="warning-level" value="emit-warnings"/>
         <appendMe value="-g "/>
@@ -272,8 +204,7 @@
         <property key="enable-default-isr" value="true"/>
         <property key="enable-handles" value="true"/>
         <property key="enable-pack-data" value="true"/>
-        <property key="extra-lib-directories"
-                  value="..;..\lib\motor_control;..\lib\x2c_scope"/>
+        <property key="extra-lib-directories" value=".."/>
         <property key="fill-flash-options-addr" value=""/>
         <property key="fill-flash-options-const" value=""/>
         <property key="fill-flash-options-how" value="0"/>
@@ -310,7 +241,7 @@
       </C30-LD>
       <C30Global>
         <property key="combine-sourcefiles" value="false"/>
-        <property key="common-include-directories" value="..\lib\motor_control"/>
+        <property key="common-include-directories" value=""/>
         <property key="dual-boot-partition" value="0"/>
         <property key="fast-math" value="false"/>
         <property key="generic-16-bit" value="false"/>
@@ -456,7 +387,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>

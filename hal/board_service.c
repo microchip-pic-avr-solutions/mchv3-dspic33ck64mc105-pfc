@@ -46,10 +46,8 @@ void BoardServiceInit(void);
 void BoardServiceStepIsr(void);
 void BoardService(void);
 bool IsPressed_Button1(void);
-void HAL_ResetPeripherals(void);
-void HAL_PFCADCSwitchChannels(void);
-void HAL_MCADCSwitchChannels(void);
-
+void EnablePFCPWMOutputs(void);
+void DisablePFCPWMOutputs(void);
 
 static void ButtonGroupInitialize(void);
 static void ButtonScan(BUTTON_T * ,bool);
@@ -153,92 +151,6 @@ void HAL_InitPeripherals(void)
     TIMER1_InterruptEnable(); 
     TIMER1_ModuleStart();
 }
-void HAL_ResetPeripherals(void)
-{
-    uint16_t adcBuffer = 0; 
-    adcBuffer = MC1_ClearADCIF_ReadADCBUF();
-    MC1_ClearADCIF();
-    MC1_EnableADCInterrupt();
-    HAL_MC1PWMDisableOutputs();
-}
-
-
-void HAL_MC1PWMEnableOutputs(void)
-{
-    /* Set PWM Duty Cycles */
-    MC1_PWM_PDC3 = 0;
-    MC1_PWM_PDC2 = 0;
-    MC1_PWM_PDC1 = 0;
-    
-    // Enable PWMs only on PWMxL ,to charge bootstrap capacitors initially.
-    // Hence PWMxH is over-ridden to "LOW"
-
-    PG3IOCONLbits.OVRENH = 0;  // 0 = PWM generator provides data for PWM3H pin
-    PG2IOCONLbits.OVRENH = 0;  // 0 = PWM generator provides data for PWM2H pin
-    PG1IOCONLbits.OVRENH = 0;  // 0 = PWM generator provides data for PWM1H pin
-
-    PG3IOCONLbits.OVRENL = 0;  // 0 = PWM generator provides data for PWM3L pin
-    PG2IOCONLbits.OVRENL = 0;  // 0 = PWM generator provides data for PWM2L pin
-    PG1IOCONLbits.OVRENL = 0;  // 0 = PWM generator provides data for PWM1L pin
-}
-void HAL_MC1PWMDisableOutputs(void)
-{
-    /* Set PWM Duty Cycles */
-    MC1_PWM_PDC3 = 0;
-    MC1_PWM_PDC2 = 0;
-    MC1_PWM_PDC1 = 0;
-    
-    PG3IOCONLbits.OVRDAT = 0;  // 0b00 = State for PWM3H,L, if Override is Enabled
-    PG2IOCONLbits.OVRDAT = 0;  // 0b00 = State for PWM2H,L, if Override is Enabled
-    PG1IOCONLbits.OVRDAT = 0;  // 0b00 = State for PWM1H,L, if Override is Enabled
-
-    PG3IOCONLbits.OVRENH = 1;  // 1 = OVRDAT<1> provides data for output on PWM3H
-    PG2IOCONLbits.OVRENH = 1;  // 1 = OVRDAT<1> provides data for output on PWM2H
-    PG1IOCONLbits.OVRENH = 1;  // 1 = OVRDAT<1> provides data for output on PWM1H
-
-    PG3IOCONLbits.OVRENL = 1;  // 1 = OVRDAT<0> provides data for output on PWM3L
-    PG2IOCONLbits.OVRENL = 1;  // 1 = OVRDAT<0> provides data for output on PWM2L
-    PG1IOCONLbits.OVRENL = 1;  // 1 = OVRDAT<0> provides data for output on PWM1L
-}
-/**
- * Writes three unique duty cycle values to the PWM duty cycle registers
- * corresponding to Motor #1.
- * Summary: Writes to the PWM duty cycle registers corresponding to Motor #1.
- * @param pdc Pointer to the array that holds duty cycle values
- * @example
- * <code>
- * HAL_PwmSetDutyCycles_Motor1(&pdcMotor1);
- * </code>
- */
-void HAL_MC1PWMSetDutyCycles(MC_DUTYCYCLEOUT_T *pdc)
-{
-    if(pdc->dutycycle3 < MIN_DUTY)
-    {
-        pdc->dutycycle3 = MIN_DUTY;
-    }
-    if(pdc->dutycycle2 < MIN_DUTY)
-    {
-        pdc->dutycycle2 = MIN_DUTY;
-    }
-    if(pdc->dutycycle1 < MIN_DUTY)
-    {
-        pdc->dutycycle1 = MIN_DUTY;
-    }
-    
-    MC1_PWM_PDC3 = pdc->dutycycle3;
-    MC1_PWM_PDC2 = pdc->dutycycle2;
-    MC1_PWM_PDC1 = pdc->dutycycle1;
-}
-/**
- * Writes three unique duty cycle values to the PWM duty cycle registers
- * corresponding to Motor #1.
- * Summary: Writes to the PWM duty cycle registers corresponding to Motor #1.
- * @param pdc Pointer to the array that holds duty cycle values
- * @example
- * <code>
- * HAL_PwmSetDutyCycles_Motor1(&pdcMotor1);
- * </code>
- */
 
 /**
  * Writes three unique duty cycle values to the PWM duty cycle registers
@@ -252,7 +164,7 @@ void HAL_MC1PWMSetDutyCycles(MC_DUTYCYCLEOUT_T *pdc)
  */
 void HAL_TrapHandler(void)
 {
-    HAL_MC1PWMDisableOutputs();
+    DisablePFCPWMOutputs();
     while (1)
     {
         Nop();
@@ -260,98 +172,6 @@ void HAL_TrapHandler(void)
         Nop();
     }
 }
-
-void HAL_MC1MotorInputsRead(MCAPP_MEASURE_T *pMotorInputs)
-{   
-
-    
-    pMotorInputs->measureCurrent.Ia = MC1_ADCBUF_IPHASE1;
-    pMotorInputs->measureCurrent.Ib = MC1_ADCBUF_IPHASE2;
-//    pMotorInputs->measurePot = MC1_ADCBUF_POT;
-    pMotorInputs->measureVdc.value = MC_ADCBUF_VDC;
-    
-   
-}
-
-
-void HAL_MC1SetVoltageVector(int16_t vector)
-{
-    /* Overrides PWM based on vector number in the order of c-b-a */
-    
-    switch(vector)
-    {
-        case 0:
-            /* c-b-a :: 0-0-0 */
-            PG3IOCONL = PWM_BOT_ON;
-            PG2IOCONL = PWM_BOT_ON;
-            PG1IOCONL = PWM_BOT_ON;
-        break;
-        
-        case 1:
-            /* c-b-a :: 0-0-1 */
-            PG3IOCONL = PWM_BOT_ON;
-            PG2IOCONL = PWM_BOT_ON;
-            PG1IOCONL = PWM_TOP_ON;
-        break;
-        
-        case 2:
-            /* c-b-a :: 0-1-1 */
-            PG3IOCONL = PWM_BOT_ON;
-            PG2IOCONL = PWM_TOP_ON;
-            PG1IOCONL = PWM_TOP_ON;
-        break;
-        
-        case 3:
-            /* c-b-a :: 0-1-0 */
-            PG3IOCONL = PWM_BOT_ON;
-            PG2IOCONL = PWM_TOP_ON;
-            PG1IOCONL = PWM_BOT_ON;
-        break;
-        
-        case 4:
-            /* c-b-a :: 1-1-0 */
-            PG3IOCONL = PWM_TOP_ON;
-            PG2IOCONL = PWM_TOP_ON;
-            PG1IOCONL = PWM_BOT_ON;
-        break;
-        
-        case 5:
-            /* c-b-a :: 1-0-0 */
-            PG3IOCONL = PWM_TOP_ON;
-            PG2IOCONL = PWM_BOT_ON;
-            PG1IOCONL = PWM_BOT_ON;
-        break;
-        
-        case 6:
-             /* c-b-a :: 1-0-1 */
-            PG3IOCONL = PWM_TOP_ON;
-            PG2IOCONL = PWM_BOT_ON;
-            PG1IOCONL = PWM_TOP_ON;
-        break;
-        
-        case 7:
-            /* c-b-a :: 1-1-1 */
-            PG3IOCONL = PWM_TOP_ON;
-            PG2IOCONL = PWM_TOP_ON;
-            PG1IOCONL = PWM_TOP_ON;
-        break;
-
-        default:
-            vector = 0;
-        break;
-    }
-}
-//void HAL_PFCADCSwitchChannels(void)
-//{
-//    ADCON4Hbits.C1CHS = 0;
-//    ADTRIG0Lbits.TRGSRC1 = 0x4;
-//}
-//
-//void HAL_MCADCSwitchChannels(void)
-//{
-//    ADCON4Hbits.C1CHS = 1;
-//    ADTRIG0Lbits.TRGSRC1 = 0b01011;
-//}
 
 void EnablePFCPWMOutputs(void)
 {    
@@ -366,4 +186,5 @@ void DisablePFCPWMOutputs(void)
     
     PG4IOCONLbits.OVRENL = 1; 
         
+    PFC_ENABLE_SIGNAL = 0;
 }

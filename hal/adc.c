@@ -154,13 +154,10 @@ void InitializeADCs (void)
        0 = Channel output data is unsigned    */
     /*ADMOD0L configures Output Data Sign for Analog inputs  AN0 to AN7 */
     ADMOD0L = 0x0000;
-    ADMOD0Lbits.SIGN0 = 1;
-    ADMOD0Lbits.SIGN1 = 1;
 	ADMOD0Lbits.SIGN2 = 1;
     ADMOD0Lbits.SIGN3 = 1;
 	/*ADMOD0H configures Output Data Sign for Analog inputs  AN8 to AN15 */
     ADMOD0Hbits.SIGN12 = 0;
-//    ADMOD0Hbits.SIGN15 = 0;
    
     /*ADMOD1L configures Output Data Sign for Analog inputs  AN16 to AN23 */
     ADMOD1L = 0;
@@ -202,15 +199,7 @@ void InitializeADCs (void)
     /* Setup ADC Interrupts for reading and processing converted results */
     /* Common Interrupt Enable bits
        1 = Common and individual interrupts are enabled for analog channel
-       0 = Common and individual interrupts are disabled for analog channel*/
-    _IE15        = 0 ;
-    /* Clear ADC interrupt flag */
-    _ADCAN15IF    = 0 ;  
-    /* Set ADC interrupt priority IPL 7  */ 
-    _ADCAN15IP   = 6 ;  
-    /* Disable the AN15 interrupt  */
-    _ADCAN15IE    = 0 ;  
-    
+       0 = Common and individual interrupts are disabled for analog channel*/    
     _IE12        = 1 ;
     /* Clear ADC interrupt flag */
     _ADCAN12IF    = 0 ;  
@@ -218,24 +207,6 @@ void InitializeADCs (void)
     _ADCAN12IP   = 7 ;  
     /* Disable the AN15 interrupt  */
     _ADCAN12IE    = 0 ;  
-    
-    
-    _IE0        = 0 ;
-    /* Clear ADC interrupt flag */
-    _ADCAN0IF    = 0 ;  
-    /* Set ADC interrupt priority IPL 7  */ 
-    _ADCAN0IP   = 7 ;  
-    /* Disable the AN0 interrupt  */
-    _ADCAN0IE    = 0 ;  
-    
-    
-    _IE1        = 1 ;
-    /* Clear ADC interrupt flag */
-    _ADCAN1IF    = 0 ;  
-    /* Set ADC interrupt priority IPL 7  */ 
-    _ADCAN1IP   = 6 ;  
-    /* Disable the AN1 interrupt  */
-    _ADCAN1IE    = 0 ;  
     
     _IE2        = 0 ;
     /* Clear ADC interrupt flag */
@@ -252,15 +223,6 @@ void InitializeADCs (void)
     _ADCAN3IP   = 7 ;  
     /* Disable the AN3 interrupt  */
     _ADCAN3IE    = 0 ; 
-    /* Trigger Source Selection for Corresponding Analog Inputs bits 
-        00100 = PWM1 Trigger 1
-        00001 = Common software trigger
-        00000 = No trigger is enabled  */
-    
-    /* Trigger Source for Analog Input #0  = 0b0100 */
-    ADTRIG0Lbits.TRGSRC0 = 0x0;
-    /* Trigger Source for Analog Input #1  = 0b0100 */
-    ADTRIG0Lbits.TRGSRC1 = 0x0;
     
     /* Trigger Source Selection for Corresponding Analog Inputs bits 
         01011 = PWM4 Trigger 2

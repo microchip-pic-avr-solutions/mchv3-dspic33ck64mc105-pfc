@@ -271,7 +271,7 @@ void PFC_ControlLoopMain(void)
             break;
         case PFC_FAULT:
             pfcParam.duty = 0;
-            runCmdMC1 = 0;
+            
             Trigger = 0;
             DisablePFCPWMOutputs();
 //            LED1 = 1;

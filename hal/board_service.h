@@ -48,8 +48,6 @@
 #include "timer1.h"
 #include "measure.h"
 
-#include "../motor_control/motor_control.h"
-
 #ifdef __cplusplus  // Provide C++ Compatability
     extern "C" {
 #endif
@@ -86,32 +84,13 @@ typedef struct
     PWM ISR cycles (i.e. BOARD_SERVICE_TICK_COUNT = 1 milli Second / PWM period)*/
 #define     BOARD_SERVICE_TICK_COUNT    20
 
-#define 	MC1_BEMF_SAMPLING_FACTOR    4
-
-/** Board Parameters */
-#define     MC1_PEAK_VOLTAGE            453.3  
-#define     MC1_PEAK_CURRENT            16
-
-#define     MC1_MOTOR_START_DC_VOLT     250.0
-#define     MC1_MOTOR_STOP_DC_VOLT      200.0
-
-
 void BoardServiceInit(void);
 void BoardServiceStepIsr(void);
 void BoardService(void);
 bool IsPressed_Button1(void);
 void HAL_InitPeripherals(void);
-void HAL_ResetPeripherals(void);
-
-void HAL_MC1PWMDisableOutputs(void);
-void HAL_MC1PWMEnableOutputs(void);
-void HAL_MC1PWMSetDutyCycles(MC_DUTYCYCLEOUT_T *);
-void HAL_MC1MotorInputsRead(MCAPP_MEASURE_T *);
-void HAL_MC1SetVoltageVector(int16_t);
-extern void HAL_PFCADCSwitchChannels(void);
-extern void HAL_MCADCSwitchChannels(void);
-
-
+void EnablePFCPWMOutputs(void);
+void DisablePFCPWMOutputs(void);
 
 void HAL_TrapHandler(void);
 
