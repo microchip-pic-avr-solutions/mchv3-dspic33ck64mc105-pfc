@@ -47,8 +47,6 @@
 extern "C" {
 #endif
 
-#define ENABLE_DIAGNOSTICS
-    
 /**
  * Initializes diagnostics
  */
