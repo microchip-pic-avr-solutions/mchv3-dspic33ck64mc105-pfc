@@ -1,0 +1,4 @@
+[submodule "mchv3-dspic33ck64mc105-pfc/library/library-x2cscope"]
+	path = mchv3-dspic33ck64mc105-pfc/library/library-x2cscope
+	url = https://github.com/microchip-pic-avr-solutions/library-x2cscope
+	branch = master
