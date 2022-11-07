@@ -21,7 +21,7 @@ pipeline {
         */
         NOTIFICATION_EMAIL = '1f1319de.microchip.com@amer.teams.ms'  
         // GitHub production organization name
-        GITHUB_PRODUCTION_ORGANIZATION = "microchip-pic-avr-examples"
+        GITHUB_PRODUCTION_ORGANIZATION = "microchip-pic-avr-solutions"
         
         /*
             GitHub Deploy Stage Information
@@ -56,13 +56,14 @@ pipeline {
 
     options {
         timestamps()
-        timeout(time: 30, unit: 'MINUTES')
+        timeout(time: 20, unit: 'MINUTES')
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+				sh "git submodule update --init"
             }
         }
         
@@ -78,7 +79,9 @@ pipeline {
         
         stage('Build') {
             steps {
-                script {                   
+                script {  
+                    sh("npm install -g xml2js")
+		    sh("npm link xml2js")				
                     mplabxProjectBuild(
                         sourceFilePath: "${env.MPLABX_PROJECT_SOURCE}"
                     )
@@ -164,7 +167,8 @@ pipeline {
                         bitbucketUrl: "${env.BITBUCKET_SOURCE_URL}",
                         deployBranchList: "${env.DEPLOY_BRANCH_LIST}",
                         deployExcludeFileList: "${env.DEPLOY_EXCLUDE_FOLDER_FILE_LIST}",
-                        githubOrgName: "${env.GITHUB_PRODUCTION_ORGANIZATION}"
+                        githubOrgName: "${env.GITHUB_PRODUCTION_ORGANIZATION}",
+						includeSubmoduleCode: "true"
                     )
                 }
             }
