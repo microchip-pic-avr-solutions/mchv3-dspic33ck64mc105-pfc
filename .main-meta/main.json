@@ -4,21 +4,21 @@
    "content":{
       "metaDataVersion":"1.3.0",
       "name":"com.microchip.mplabx.project.mchv3-dspic33ck64mc105-pfc",
-      "version":"x.x.x",
-      "displayName":"xxxxxxxxxxxxxxx",
+      "version":"1.0.0",
+      "displayName":"Single Stage Boost PFC dsPIC33CK64MC105 MCHV3",
       "projectName":"mchv3-dspic33ck64mc105-pfc",
-      "shortDescription":"xxxxxxxxxxxxxxx",
+      "shortDescription":"Single Stage Boost PFC",
       "ide":{
          "name":"MPLABX",
-         "semverRange":">=5.40.0"
+         "semverRange":">=6.00"
       },
       "compiler":{
          "name":"XC16",
-         "semverRange":"^1.50.0"
+         "semverRange":">=2.00"
       },
       "dfp":{
-         "name":"xxxxxxxxxxxxxxx",
-         "semverRange":">=x.x.x"
+         "name":"dsPIC33CK-MC_DFP",
+         "semverRange":"=1.5.126"
       },
 	  "configurator": {
          "name": "MCC",
@@ -30,16 +30,17 @@
          "content":{
             "metaDataVersion":"1.0.0",
             "category":"com.microchip.device",
-            "name":"xxxxxxxxxxxxxxx",
+            "name":"dsPIC33CK64MC105",
             "versionRange":"*"
          }
       },
 	  "peripherals":[
-         "GPIO"
+         "ADC",
+		 "PWM"
       ],
       "keywords":[
-         "GPIO",
-         "UART"
+        "Boost Converter",
+		"PFC"
       ]
    }
 }
