@@ -141,21 +141,20 @@ of PFC Control loop execution rate ((80 KHz) */
 */ 
 #define KMUL   7161
     
-/** PFC PI parameter */
-/** Voltage  loop Coefficients */
-#define KP_V          Q15(0.62)
-#define KI_V          Q15(0.08)  
-#define KP_V_SCALE    2
-#define KI_V_SCALE    0  
-           
+/** PFC PI parameter */      
 /** PFC Current loop Coefficients */
-#define KP_I          Q15(0.55)
-#define KI_I          Q15(0.6981)
-#define KP_I_SCALE    1
+#define KP_I          Q15(0.7044)
+#define KI_I          Q15(0.177)
+#define KP_I_SCALE    2
 #define KI_I_SCALE    0
 #define KI_I_INTGRAL_OUT_MAX    Q15(PFC_MAX_DUTY_PU)
-            
-         
+        
+/** Voltage  loop Coefficients */
+#define KP_V          Q15(0.9040)
+#define KI_V          Q15(0.0045)  
+#define KP_V_SCALE    2
+#define KI_V_SCALE    0  
+
 /** Calculate nominal values of PFC Output voltage operating Range*/  
 #define PFC_OUPUT_VOLTAGE_REFERENCE             Q15(NORM_VALUE(PFC_OUPUT_VOLTAGE_NOMINAL,PFC_VOLTAGE_BASE))
 #define PFC_MIN_VOLTAGE_REFERENCE_Q15           Q15((PFC_INPUT_UNDER_VOLTAGE_HI*SQR_ROOT_OF_2)/PFC_VOLTAGE_BASE)
