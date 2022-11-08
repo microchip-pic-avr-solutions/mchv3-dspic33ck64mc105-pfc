@@ -143,15 +143,15 @@ of PFC Control loop execution rate ((80 KHz) */
     
 /** PFC PI parameter */
 /** Voltage  loop Coefficients */
-#define KP_V          Q15(0.62)
-#define KI_V          Q15(0.08)  
+#define KP_V          Q15(0.9040)
+#define KI_V          Q15(0.0045)  
 #define KP_V_SCALE    2
 #define KI_V_SCALE    0  
            
 /** PFC Current loop Coefficients */
-#define KP_I          Q15(0.55)
-#define KI_I          Q15(0.6981)
-#define KP_I_SCALE    1
+#define KP_I          Q15(0.7044)
+#define KI_I          Q15(0.177)
+#define KP_I_SCALE    2
 #define KI_I_SCALE    0
 #define KI_I_INTGRAL_OUT_MAX    Q15(PFC_MAX_DUTY_PU)
             
