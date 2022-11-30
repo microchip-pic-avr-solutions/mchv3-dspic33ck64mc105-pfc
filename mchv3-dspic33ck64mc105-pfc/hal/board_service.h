@@ -46,7 +46,6 @@
 #include "adc.h"
 #include "port_config.h"
 #include "timer1.h"
-#include "measure.h"
 
 #ifdef __cplusplus  // Provide C++ Compatability
     extern "C" {
