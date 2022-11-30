@@ -5,7 +5,7 @@
  * This header file lists interface functions - to configure and enable TIMER1 
  * module and its features
  * 
- * Definitions in this file are for dsPIC33CH128MP508.
+ * Definitions in this file are for dsPIC33CK64MC105.
  * 
  * Component: Master Core - HAL - TIMER1
  * 

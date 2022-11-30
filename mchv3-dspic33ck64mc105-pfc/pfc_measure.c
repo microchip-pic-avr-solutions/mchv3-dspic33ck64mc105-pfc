@@ -1,6 +1,6 @@
 // <editor-fold defaultstate="collapsed" desc="Description/Instruction ">
 /**
- * @file measure.c
+ * @file pfc_measure.c
  *
  * @brief This module has functions for signal conditioning of measured
  *        analog feedback signals.

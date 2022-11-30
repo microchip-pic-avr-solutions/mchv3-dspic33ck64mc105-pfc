@@ -93,8 +93,6 @@ PFC_CTRL_STATE_T pfcState;
 volatile int16_t currentReference,boostDutyRatio,currentReference1=0,currentReference2=0;
 volatile uint16_t pfcFaultStatus = 0;
 int16_t adcDataBuffer;
-extern int16_t runCmdMC1;
-uint16_t Trigger=0;
 // </editor-fold> 
 
 /**
@@ -202,7 +200,6 @@ void PFC_ControlLoopMain(void)
             break;
         case PFC_CTRL_RUN:
             /*Limiting PFC Input rectified acVoltage b/w minimum and maximum Limits*/
-            Trigger=100;
             if (pfcMeasured.acVoltage > Q15(0.998))
             {
                 pfcMeasured.acVoltage = Q15(0.998);
@@ -271,8 +268,6 @@ void PFC_ControlLoopMain(void)
             break;
         case PFC_FAULT:
             pfcParam.duty = 0;
-            
-            Trigger = 0;
             DisablePFCPWMOutputs();
 //            LED1 = 1;
             if(pfcVacRMS.sqrOutput >= PFC_INPUT_UNDER_VOLTAGE_LIMIT_HI)

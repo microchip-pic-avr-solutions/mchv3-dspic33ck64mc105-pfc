@@ -16,7 +16,6 @@
         <itemPath>../hal/pwm.h</itemPath>
         <itemPath>../hal/uart1.h</itemPath>
         <itemPath>../hal/timer1.h</itemPath>
-        <itemPath>../hal/measure.h</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="library" projectFiles="true">
         <logicalFolder name="x2c_scope" displayName="x2cscope" projectFiles="true">
@@ -47,7 +46,6 @@
         <itemPath>../hal/pwm.c</itemPath>
         <itemPath>../hal/uart1.c</itemPath>
         <itemPath>../hal/timer1.c</itemPath>
-        <itemPath>../hal/measure.c</itemPath>
       </logicalFolder>
       <itemPath>../main.c</itemPath>
       <itemPath>../traps.c</itemPath>

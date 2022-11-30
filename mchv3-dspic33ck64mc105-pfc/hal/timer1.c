@@ -4,7 +4,7 @@
  *
  * This file includes subroutine to configure TIMER1 Module
  * 
- * Definitions in this file are for dsPIC33CH128MP508.
+ * Definitions in this file are for dsPIC33CK64MC105.
  * 
  * Component: Master Core - HAL - TIMER1
  * 
