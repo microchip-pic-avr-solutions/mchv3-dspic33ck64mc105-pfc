@@ -112,7 +112,7 @@ void PFC_Initialize(void)
     pfcVacRMS.sampleLimit = PFC_RMS_SQUARE_COUNTMAX;
     /** Initialize variables related to Average calculation - VDC */ 
     pfcVdcAVG.scaler = PFC_AVG_SCALER;
-    pfcVdcAVG.sampleLimit = 128;//1<<pfcVdcAVG.scaler;
+    pfcVdcAVG.sampleLimit = 1<<pfcVdcAVG.scaler;
 
 /** Initialize PI controlling PFC Current Loop */    
     pfcPICurrent.kp = KP_I;
