@@ -2,10 +2,7 @@
 /**
  * pfc.h
  *
- * This is main header file to be included if  PFC functionality to be 
- * implemented
- * 
-
+ * This is main header file of the PFC module
  * 
  * 
  */
@@ -128,4 +125,3 @@ extern void PFC_Initialize(void);
 #endif
 
 #endif	/* PFC_H */
-

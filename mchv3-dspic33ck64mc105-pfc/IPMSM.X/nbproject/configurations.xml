@@ -46,6 +46,7 @@
         <itemPath>../hal/pwm.c</itemPath>
         <itemPath>../hal/uart1.c</itemPath>
         <itemPath>../hal/timer1.c</itemPath>
+        <itemPath>../hal/device_config.c</itemPath>
       </logicalFolder>
       <itemPath>../main.c</itemPath>
       <itemPath>../traps.c</itemPath>

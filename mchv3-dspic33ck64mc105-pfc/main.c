@@ -107,7 +107,7 @@ void __attribute__((__interrupt__,__auto_psv__)) _T1Interrupt (void)
     BoardServiceStepIsr();
     TIMER1_InterruptFlagClear();
 }
-void __attribute__((__interrupt__,no_auto_psv)) _PFC_ADCInterrupt()
+void __attribute__((__interrupt__,no_auto_psv)) PFC_ADCInterrupt()
 {    
     /** Load ADC Buffer data to respective variables */
     /*Converting dcVoltage from 0 to 65535 to 0 to 32767*/

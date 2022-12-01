@@ -66,10 +66,10 @@
 // Push button Switches
 
 // PUSH BUTTON: PIM #68
-#define PUSHBUTTON PORTCbits.RC9 
+#define PUSHBUTTON              PORTCbits.RC9 
         
 // PUSH BUTTON : PIM #68 - Used as START/STOP button of Motor
-#define BUTTON_START_STOP        PUSHBUTTON 
+#define BUTTON_START_STOP       PUSHBUTTON 
 
 // Debug LEDs
 // LED2(D2) : PIM #01(RC13)

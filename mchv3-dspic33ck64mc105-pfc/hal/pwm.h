@@ -60,29 +60,29 @@
 // *****************************************************************************
 #include <xc.h>
 #include <stdint.h>
+        
 #include "clock.h"
 // *****************************************************************************
 // *****************************************************************************
 // Section: Constants
 // *****************************************************************************
 // *****************************************************************************
-
-#define PFC_PWM_PDC PG4DC        
- 
 // Definition to enable or disable PWM Fault
 #undef ENABLE_PWM_FAULT
          
 /** PFC Period ,Duty related definitions */
-#define PFC_PWMFREQUENCY_HZ 80000        
+#define PFC_PWMFREQUENCY_HZ     80000        
 /* Basic loop period in units of Tcy */
-#define PFC_LOOPTIME_TCY      (uint16_t)(FOSC/(PFC_PWMFREQUENCY_HZ*2)-1)
+#define PFC_LOOPTIME_TCY        (uint16_t)(FOSC/(PFC_PWMFREQUENCY_HZ*2)-1)
 /* Mention minimum duty cycle */
-#define PFC_MIN_DUTY           0
-/* Mention maximum duty cycle,Make Sure Maximum duty ratio is less than or equal to 0.9 */
-#define PFC_MAX_DUTY_PU        0.9
+#define PFC_MIN_DUTY            0
+/* Mention maximum duty cycle,Make Sure Maximum duty ratio is less than or equal
+ *  to 0.9 */
+#define PFC_MAX_DUTY_PU         0.9
 /* Maximum duty cycle in terms of PWM period */
 #define PFC_MAX_DUTY            (uint16_t)(PFC_MAX_DUTY_PU*PFC_LOOPTIME_TCY)
-           
+     
+#define PFC_PWM_PDC             PG4DC         
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines
@@ -94,5 +94,3 @@ void InitPWMGenerators(void);
     }
 #endif
 #endif      // end of PWM_H
-
-

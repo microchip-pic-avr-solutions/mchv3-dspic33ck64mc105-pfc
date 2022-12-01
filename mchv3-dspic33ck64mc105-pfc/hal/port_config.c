@@ -169,9 +169,6 @@ void MapGPIOHWFunction(void)
     ANSELCbits.ANSELC0 = 1;
     TRISCbits.TRISC0 = 1;//PIN7 :AN12/RP48/RC0
 
-    //PFC_PWM : PIM #78 RP58/RC10 
-    _RP58R  = 0b100011 ; //  RP58 pin to PWM4L function (ie. 35)
-    
     //PFC Enable PIN
     TRISCbits.TRISC6 = 0;  //PIM 19, PIN 17 : IBIAS1/RP54/RC6
             
@@ -192,4 +189,8 @@ void MapGPIOHWFunction(void)
         UART_TX : PIM #50 (Output)   */
     _U1RXR = 56;
     _RP65R = 0b000001;
+    
+    /** PWM4L is remapped to the RP58 ; PWM4L is used for PFC Control */
+    //PFC_PWM : PIM #78 RP58/RC10 
+    _RP58R  = 0b100011 ; //PIN40 :RP58/RC10  
 }
