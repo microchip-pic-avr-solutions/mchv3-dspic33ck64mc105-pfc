@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>IPMSM</name>
+            <name>pfc</name>
             <creation-uuid>6d8fc126-238b-4652-a02b-ccb9f64c7eab</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
@@ -14,11 +14,10 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../</sourceRootElem>
-                <sourceRootElem>../../../../Aircon_ODU_dsPIC33CH128MP508_1/trunk/slave</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>Configuration</name>
+                    <name>MCHV_3</name>
                     <type>2</type>
                 </confElem>
             </confList>

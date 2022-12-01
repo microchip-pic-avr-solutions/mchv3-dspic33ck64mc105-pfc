@@ -62,11 +62,10 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>../</Elem>
-    <Elem>../../../../Aircon_ODU_dsPIC33CH128MP508_1/trunk/slave</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Configuration" type="2">
+    <conf name="MCHV_3" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33CK64MC105</targetDevice>
@@ -214,7 +213,7 @@
         <property key="general-write-protect" value="no_write_protect"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="heap-size" value=""/>
-        <property key="input-libraries" value="q;x2cscope-generic-dspic"/>
+        <property key="input-libraries" value="x2cscope-generic-dspic"/>
         <property key="linker-stack" value="true"/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value="&quot;PMSM.X.${IMAGE_TYPE}.map&quot;"/>
@@ -385,7 +384,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>
