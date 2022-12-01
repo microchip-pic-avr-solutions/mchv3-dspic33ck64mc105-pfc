@@ -79,19 +79,20 @@
 /* Define PFC Input AC Voltage Frequency*/
 #define PFC_INPUT_FREQUENCY  50 
 /* Define Sample numbers for DC Bus Voltage Average*/        
-#define PFC_AVG_SCALER      7 //2^9 = 512 samples average
+#define PFC_AVG_SCALER      7 //2^7 = 128 samples average
  /*Counter for RMS Calculation for half cycle of Input Voltage*/       
 #define PFC_RMS_SQUARE_COUNTMAX    (uint16_t)((uint32_t)PFC_PWMFREQUENCY_HZ/(2*PFC_INPUT_FREQUENCY)) 
+        
 /** Base Value of Voltage for the System. This value is calculated as follows:
 With the resistor divider used to measure DCBUSSENSE signal, 3.3V is generated 
 when an input of 453V is present in DCBUS */
 #define PFC_VOLTAGE_BASE      453.0
 /** Base Value of Current for the System
      This is how this value was calculated:Diff Operational amplifier of
-     4.7kOhm/(560ohm+39ohm) = 26.32. So:
-     Vinadc = Ishunt*Rshunt*7.84. For a maximum ADC input of 3.3V, and 
+     3.1kOhm/(560ohm+39ohm) = 5.175. So:
+     Vinadc = Ishunt*Rshunt*5.175. For a maximum ADC input of 1.65V, and 
      with Rshunt of 0.015 Ohm
-     we have a maximum current = 14.03 A */
+     we have a maximum current = 21.3 A */
 #define PFC_INPUT_MAX_CURRENT       21.3
                 
 /** PFC Fault Limits - Input Voltage,Input Current and Output Voltages */
@@ -118,11 +119,11 @@ when an input of 453V is present in DCBUS */
 #define PFC_OUPUT_VOLTAGE_NOMINAL   380
         
 /** Soft start ramp rate and ramp count .This is specified at the rate 
-of PFC Control loop execution rate ((80 KHz) */
+of PFC Control loop execution rate  **/
 #define RAMP_COUNT                  1
 #define RAMP_RATE                   20
 
-/*Define Minumum PFC Voltage Control Output to Turn ON PFC IGBT, 
+/*Define Minimum PFC Voltage Control Output to Turn ON PFC IGBT, 
  * This is doing to reduce switching losses when operating under very low load*/        
 #define PFC_MIN_CURRENTREF_PEAK_Q15     100        
 /** Voltage loop execution rate . This is specified at rate of PFC COntrol loop 
@@ -134,10 +135,9 @@ of PFC Control loop execution rate ((80 KHz) */
 /** KMUL is used as scaling constant    
     KMUL is calculated such that the current reference value
     equals to its maximum value at minimum line voltage.
-            
-    Therefore 
-    Kmul = (Current limit[q15]*Vacrms(min)^2 [q15]*32768)/(Voltage_PI_Out_Limit[q15]*Vacpeak(min)[q15])               
- 
+ *           
+    Therefore is calculated as follows:            
+    KMUL =  [Vacpk(min)/(2*Vac_base)]*32767
 */ 
 #define KMUL   7161
     

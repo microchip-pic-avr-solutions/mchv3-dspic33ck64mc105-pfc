@@ -145,9 +145,7 @@ void InitializeADCs (void)
        dedicated) from the TSRC ADC module clock selected by the CLKSEL<2:0> .
        000000 = 1 Source Clock Periods */
     ADCON3Hbits.CLKDIV = 0;
-    
-
-
+  
     /* Configuring ADC INPUT MODE CONTROL REGISTER bits 
        Output Data Sign for Corresponding Analog Inputs bits
        1 = Channel output data is signed
@@ -225,9 +223,7 @@ void InitializeADCs (void)
     _ADCAN3IE    = 0 ; 
     
     /* Trigger Source Selection for Corresponding Analog Inputs bits 
-        01011 = PWM4 Trigger 2
-        01010 = PWM4 Trigger 1
-        01001 = PWM3 Trigger 2  */
+        01011 = PWM4 Trigger 2  */
     ADTRIG3Lbits.TRGSRC12 = 0b01011;
     ADTRIG0Hbits.TRGSRC2 = 0b01011;
     ADTRIG0Hbits.TRGSRC3 = 0b01011;

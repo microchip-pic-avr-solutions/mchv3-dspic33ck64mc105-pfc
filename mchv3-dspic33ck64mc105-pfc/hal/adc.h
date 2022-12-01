@@ -65,15 +65,15 @@
 // *****************************************************************************
 // *****************************************************************************
 // ADC MODULE Related Definitions
-#define ADCBUF_PFC_VDC      (int16_t)(ADCBUF12 >> 1)
-#define ADCBUF_PFC_VAC      (int16_t)ADCBUF2
-#define ADCBUF_PFC_IPH      (int16_t)ADCBUF3  
+#define ADCBUF_PFC_VDC              (int16_t)(ADCBUF12 >> 1)
+#define ADCBUF_PFC_VAC              (int16_t)ADCBUF2
+#define ADCBUF_PFC_IPH              (int16_t)ADCBUF3  
         
-#define EnablePFCADCInterrupt()   _ADCAN12IE = 1
-#define DisablePFCADCInterrupt()  _ADCAN12IE = 0        
-#define ClearPFCADCIF()   _ADCAN12IF = 0   
-#define ClearPFCADCIF_ReadADCBUF() ADCBUF12        
-#define _PFC_ADCInterrupt _ADCAN12Interrupt        
+#define EnablePFCADCInterrupt()     _ADCAN12IE = 1
+#define DisablePFCADCInterrupt()    _ADCAN12IE = 0        
+#define ClearPFCADCIF()             _ADCAN12IF = 0   
+#define ClearPFCADCIF_ReadADCBUF()  ADCBUF12        
+#define PFC_ADCInterrupt           _ADCAN12Interrupt        
         
 // *****************************************************************************
 // *****************************************************************************
