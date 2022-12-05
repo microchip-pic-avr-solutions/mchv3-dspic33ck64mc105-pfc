@@ -4,7 +4,6 @@
  *
  * This is main header file of the PFC module
  * 
- * 
  */
 // </editor-fold>
 
@@ -102,7 +101,7 @@ typedef enum
     PFC_FAULT_NONE = 0,
     PFC_FAULT_IP_UV = 1,
     PFC_FAULT_IP_OV = 2,
-    PFC_FAULT_OP_OV = 4,
+    PFC_FAULT_OP_OV = 3,
             
 }PFC_FAULT_TYPE_T;
     

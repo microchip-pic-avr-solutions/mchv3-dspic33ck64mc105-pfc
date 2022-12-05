@@ -103,4 +103,3 @@ void PFC_MeasureCurrentOffset(PFC_MEAS_T *pMeasure)
         pMeasure->status = 1;
     }
 }
-

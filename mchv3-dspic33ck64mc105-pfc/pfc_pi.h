@@ -4,8 +4,6 @@
  *
  * Include this file to add variables and function declaration required for
  * implementation of PI controller
-
- * 
  * 
  */
 // </editor-fold>

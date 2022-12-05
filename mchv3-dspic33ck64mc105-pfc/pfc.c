@@ -3,10 +3,6 @@
  * pfc_params.h
  *
  * This file has parameter definitions required for PFC implementation
- * 
-
- * 
- * 
  */
 // </editor-fold>
 
@@ -55,23 +51,21 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "pfc.h"
-#include "hal/pwm.h"
-#include "hal/adc.h"
-#include "hal/port_config.h"
-#include "hal/pwm.h"
-#include "hal/board_service.h"
 #include "libq.h"
+#include "pfc.h"
+#include "board_service.h"
+
 // </editor-fold> 
 
 // <editor-fold defaultstate="expanded" desc="FUNCTION DECLARATIONS ">
+
+void PFC_Initialize(void);
+void PFC_ControlLoopMain(void);
 
 static int16_t PFC_SampleCorrection(int16_t ,int16_t ,int16_t );
 static void PFC_Average(PFC_AVG_T *,int16_t);
 static void PFC_SquaredRMSCalculate(PFC_RMS_SQUARE_T *,int16_t);
 
-void PFC_ControlLoopMain(void);
-void PFC_Initialize(void);
 inline static void PFC_CurrentControlLoop(void);
 inline static void PFC_CurrentRefGenerate(void);
 
@@ -82,7 +76,6 @@ inline static void PFC_CurrentRefGenerate(void);
 PFC_MEAS_T pfcMeasured;
 PFC_AVG_T pfcVdcAVG;
 PFC_RMS_SQUARE_T pfcVacRMS;
-
 PFC_GENERAL_T pfcParam;
 
 PFC_PI_T pfcPIVoltage;
@@ -90,15 +83,15 @@ PFC_PI_T pfcPICurrent;
 
 PFC_CTRL_STATE_T pfcState;
 
-volatile int16_t currentReference,boostDutyRatio,currentReference1=0,currentReference2=0;
+volatile int16_t currentReference,boostDutyRatio;
 volatile uint16_t pfcFaultStatus = 0;
-int16_t adcDataBuffer;
+
 // </editor-fold> 
 
 /**
  * Function to initialize PFC related variables 
- * @param None.
- * @return None.
+ * @param none.
+ * @return none.
  * @example
  * <code>
  * status = PFC_Initialize();
@@ -106,6 +99,8 @@ int16_t adcDataBuffer;
  */
 void PFC_Initialize(void)
 {  
+    int16_t adcDataBuffer;
+    
     /* Make sure ADC does not generate interrupt while initializing parameters*/
 	DisablePFCADCInterrupt();
     /** Initialize variables related to RMS calculation - VAC */      
@@ -132,7 +127,8 @@ void PFC_Initialize(void)
     
     pfcState = PFC_INIT;
     pfcFaultStatus = PFC_FAULT_NONE;
-        /* Enable ADC interrupt and begin main loop timing */
+    
+    /* Enable ADC interrupt and begin main loop timing */
     ClearPFCADCIF();
     adcDataBuffer = ClearPFCADCIF_ReadADCBUF();
     EnablePFCADCInterrupt(); 
@@ -142,8 +138,8 @@ void PFC_Initialize(void)
  * Function to perform  - VAC RMS calculation, calculate moving average 
  * of VDC, PFC Voltage control loop,  Generate current reference, PFC  
  * Current control Loop
- * @param None.
- * @return None.
+ * @param none.
+ * @return none.
  * @example
  * <code>
  * status = PFC_ControlLoopMain();
@@ -151,7 +147,6 @@ void PFC_Initialize(void)
  */
 void PFC_ControlLoopMain(void)
 {    
-    
     /** Calculate average of PFC output voltage ( DC voltage) feedback 
     to remove line frequency ripple */
     PFC_Average(&pfcVdcAVG,pfcMeasured.dcVoltage);
@@ -175,19 +170,18 @@ void PFC_ControlLoopMain(void)
               
             pfcState = PFC_OFFSET_MEAS;
             
-            break;
+        break;
         case PFC_OFFSET_MEAS:
             PFC_MeasureCurrentOffset(&pfcMeasured);
             
             if(pfcMeasured.status == 1)
             {               
-                    /** Enable PFC Gate Driver outputs */ 
-                
+                /** Enable PFC Gate Driver outputs */ 
                 #ifdef ENABLE_PFC
-                    /** PFC_ENABLEB - ON */
+                    /** PFC_ENABLE - ON */
                     EnablePFCPWMOutputs();
                 #else
-                    /** PFC_ENABLEB - OFF */
+                    /** PFC_ENABLE - OFF */
                     DisablePFCPWMOutputs();
                 #endif
                 
@@ -197,7 +191,7 @@ void PFC_ControlLoopMain(void)
 
                 pfcState = PFC_CTRL_RUN;
             }
-            break;
+        break;
         case PFC_CTRL_RUN:
             /*Limiting PFC Input rectified acVoltage b/w minimum and maximum Limits*/
             if (pfcMeasured.acVoltage > Q15(0.998))
@@ -249,7 +243,8 @@ void PFC_ControlLoopMain(void)
                     /** Calculate Ideal value of Boost converter duty ratio based on 
                         current value of Vdc and Vac 
                         Boost Duty Ratio = (1 - (Vac/Vdc)) */
-                    boostDutyRatio = __builtin_divf(pfcMeasured.dcVoltage - pfcMeasured.acVoltage, pfcMeasured.dcVoltage) ;
+                    boostDutyRatio = __builtin_divf(pfcMeasured.dcVoltage - 
+                                pfcMeasured.acVoltage, pfcMeasured.dcVoltage) ;
                 }
                 
                 PFC_CurrentControlLoop();
@@ -259,7 +254,6 @@ void PFC_ControlLoopMain(void)
                     pfcParam.duty = 0;
                     pfcPICurrent.integralOut = 0;
                 }
-                
             }
             else
             {
@@ -269,7 +263,6 @@ void PFC_ControlLoopMain(void)
         case PFC_FAULT:
             pfcParam.duty = 0;
             DisablePFCPWMOutputs();
-//            LED1 = 1;
             if(pfcVacRMS.sqrOutput >= PFC_INPUT_UNDER_VOLTAGE_LIMIT_HI)
             {
                 pfcFaultStatus &= (~PFC_FAULT_IP_UV);
@@ -287,25 +280,24 @@ void PFC_ControlLoopMain(void)
                 pfcPIVoltage.reference = pfcVdcAVG.output;
                 pfcState = PFC_CTRL_RUN;
                 EnablePFCPWMOutputs();
- //               LED1 = 0;
             }
         break;
         default:
         break;   
     }
-    
 }
 /**
  * Function to calculate RMS Value of an input Signal 
- * @param None.
- * @return None.
+ * @param none.
+ * @return none.
  * @example
  * <code>
  * PFC_SquaredRMSCalculate(&signal,input);
  * </code>
  */
 static void PFC_SquaredRMSCalculate(PFC_RMS_SQUARE_T *pData,int16_t input)
-{        
+{       
+    int16_t sqrt;
     pData->sum += (int16_t) (__builtin_mulss(input,input) >> 15);
     if(pData->samples < pData->sampleLimit)
     {
@@ -317,18 +309,20 @@ static void PFC_SquaredRMSCalculate(PFC_RMS_SQUARE_T *pData,int16_t input)
     }
     else
     {
-       pData->sqrOutput = (int16_t)(__builtin_divsd(pData->sum,pData->sampleLimit));
+       pData->sqrOutput = (int16_t)(__builtin_divsd(pData->sum,
+               pData->sampleLimit));
        pData->samples = 0;
        pData->sum = 0;
+       sqrt = _Q15sqrt(pData->sqrOutput);
+       pData->peak = sqrt+ (__builtin_mulss(sqrt,13565) >> 15);
        pData->peak = pData->peakcheck;
        pData->peakcheck = 0;
     }
-
 }
 /**
  * Function to calculate moving average value of an input Signal 
  * @param pointer to Signal Data structure, Current value of signal
- * @return None.
+ * @return none.
  * @example
  * <code>
  * PFC_Average(&signal,input);
@@ -340,13 +334,11 @@ static void PFC_Average(PFC_AVG_T *pData,int16_t input)
     pData->samples++;
     if(pData->samples >= pData->sampleLimit) 
     {
-    //    pData->output = (int16_t) (pData->sum >> pData->scaler);
-       pData->output = (int16_t)( __builtin_divsd(pData->sum,
+        pData->output = (int16_t)( __builtin_divsd(pData->sum,
                                             pData->sampleLimit));
         pData->sum = 0;
         pData->samples = 0; 
     }
-
 }
 /**
  * Function to calculate average value of current in discontinuous conduction
@@ -380,7 +372,15 @@ static int16_t PFC_SampleCorrection(int16_t idealDuty,int16_t actualDuty,int16_t
     output = current;
     return(output);
 }
-
+/**
+ * Function to execute current control loop
+ * @param none
+ * @return none
+ * @example
+ * <code>
+ * PFC_CurrentControlLoop();
+ * </code>
+ */
 inline static void PFC_CurrentControlLoop(void)
 {
 #ifdef ENABLE_PFC_CURRENT_OFFSET_CORRECTION
@@ -415,82 +415,86 @@ inline static void PFC_CurrentControlLoop(void)
     {
         pfcParam.duty  = PFC_MIN_DUTY;
     }
-
 }
-
+/**
+ * Function to calculate current reference to track the input voltage
+ * @param none
+ * @return none
+ * @example
+ * <code>
+ * PFC_CurrentRefGenerate();
+ * </code>
+ */
 inline static void PFC_CurrentRefGenerate(void)
 {
-    int32_t refcur;
-        /** PI loop controlling - PFC output voltage 
-            Voltage PI is called rate specified by VOLTAGE_LOOP_EXE_RATE */
-        if (pfcParam.voltLoopExeRate > VOLTAGE_LOOP_EXE_RATE)
+    int16_t currentRef1 =  0,currentRef2 = 0;
+    
+    /** PI loop controlling - PFC output voltage 
+        Voltage PI is called rate specified by VOLTAGE_LOOP_EXE_RATE */
+    if (pfcParam.voltLoopExeRate > VOLTAGE_LOOP_EXE_RATE)
+    {
+        pfcPIVoltage.error = pfcPIVoltage.reference-pfcVdcAVG.output;
+
+        if((pfcPIVoltage.error > 700) || (pfcPIVoltage.error < -700 ))
         {
-            pfcPIVoltage.error = pfcPIVoltage.reference-pfcVdcAVG.output;
-            
-            if((pfcPIVoltage.error > 700) || (pfcPIVoltage.error < -700 ))
-            {
-                pfcPIVoltage.ki = KI_V >> 1;
-            }
-            else
-            {
-                pfcPIVoltage.ki = KI_V;
-            }
-            PFC_PIController(&pfcPIVoltage,pfcPIVoltage.error);
-            pfcParam.voltLoopExeRate = 0;
+            pfcPIVoltage.ki = KI_V >> 1;
         }
         else
         {
-           pfcParam.voltLoopExeRate++; 
+            pfcPIVoltage.ki = KI_V;
         }
+        PFC_PIController(&pfcPIVoltage,pfcPIVoltage.error);
+        pfcParam.voltLoopExeRate = 0;
+    }
+    else
+    {
+       pfcParam.voltLoopExeRate++; 
+    }
 #ifdef PFC_POWER_CONTROL    
-        /** Current reference Calculation is shown below
-            Current reference =
-                          (Voltage PI O/P)*(Measured Vac I/P )*(1/VacRMSqr)*KMUL
-        */ 
+    /** Current reference Calculation is shown below
+        Current reference =
+                      (Voltage PI O/P)*(Measured Vac I/P )*(1/VacRMSqr)*KMUL
+    */ 
 
+    /** Step 1: Current reference calculation :  
+            (Max Voltage PI O/P)*(Min Vac )
 
-        /** Step 1: Current reference calculation :  
-                (Max Voltage PI O/P)*(Min Vac )
+        Multiply Voltage PI output with Vac measured value and right shift 
+        it by 18(= 15+3) to make sure result is always less than 
+        VacRMS^2 .    
 
-            Multiply Voltage PI output with Vac measured value and right shift 
-            it by 18(= 15+3) to make sure result is always less than 
-            VacRMS^2 .    
+        Note that additional right shift by 3 is compensated in the 
+        second step in the current reference calculation */
+    currentRef1 = (int16_t) ((__builtin_mulss(pfcPIVoltage.output, 
+                                            pfcMeasured.acVoltage)) >> 18);
 
-            Note that additional right shift by 3 is compensated in the 
-            second step in the current reference calculation */
-        currentReference1 = (int16_t) ((__builtin_mulss(pfcPIVoltage.output, 
-                                                pfcMeasured.acVoltage)) >> 18);
-
-        /** Step 2: Current reference calculation 
-            ((Max Voltage PI O/P)*(Vac )*(1/VacRMS)^2))  
-
-            That is divide first step value by  VacRMS^2 */
-        if(pfcVacRMS.sqrOutput > 0)
-        {
-            currentReference2 = (int16_t)(__builtin_divf(currentReference1,pfcVacRMS.sqrOutput));
-        }
-
-        /** Step 3:  Current Reference Calculation 
-            Multiply second step result with KMUL and right shift by 12 to 
-            compensate for the right shift by 3 in the Step 1(above) */
-        currentReference = (int16_t)((__builtin_mulss( currentReference2,KMUL)) >> 12);
+    /** Step 2: Current reference calculation 
+        ((Max Voltage PI O/P)*(Vac )*(1/VacRMS)^2))  
+        That is divide first step value by  VacRMS^2 */
+    if(pfcVacRMS.sqrOutput > 0)
+    {
+        currentRef2 = (int16_t)(__builtin_divf(currentRef1,pfcVacRMS.sqrOutput));
+    }
+    /** Step 3:  Current Reference Calculation 
+        Multiply second step result with KMUL and right shift by 12 to 
+        compensate for the right shift by 3 in the Step 1(above) */
+    currentReference = (int16_t)((__builtin_mulss(currentRef2,KMUL)) >> 12);
         
 #else
-        refcur =     (__builtin_mulss(pfcPIVoltage.output, 
-                                                pfcMeasured.acVoltage));
-        if(pfcVacRMS.peak >0)
-        {    
-            currentReference = (int16_t)(__builtin_divsd(refcur,pfcVacRMS.peak));
-        }
+    refcur =     (__builtin_mulss(pfcPIVoltage.output, 
+                                            pfcMeasured.acVoltage));
+    if(pfcVacRMS.peak >0)
+    {    
+        currentReference = (int16_t)(__builtin_divsd(refcur,pfcVacRMS.peak));
+    }
 #endif        
-        /**  Perform Boundary check of generated current reference */
-        if (currentReference > Q15(0.999))
-        {
-            currentReference = Q15(0.999);
-        }
-        else if (currentReference < 0)
-        {
-            currentReference = 0;
-        }
-    
+    /**  Perform Boundary check of generated current reference */
+    if (currentReference > Q15(0.999))
+    {
+        currentReference = Q15(0.999);
+    }
+    else if (currentReference < 0)
+    {
+        currentReference = 0;
+    }
 }
