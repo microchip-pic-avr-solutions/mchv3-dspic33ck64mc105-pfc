@@ -60,7 +60,7 @@ Refer dsPICDEM™ MCHV-2 Development Board User’s Guide or dsPICDEM™ MCHV-3 
 </p>
 
 > **Note:**</br>
->Note: Rated current of the board in External op amp configuration is 16.5 A.
+>Note: Rated current of the board in External op amp configuration is 21.3 A.
 </br>
 
 5. Insert the dsPIC33CK64MC105 External Op-Amp Motor Control PIM into the PIM Socket U11 provided on the Development Board. Make sure the PIM is correctly placed and oriented before proceeding.
@@ -122,7 +122,10 @@ Follow the below instructions, step by step, to set up and run the pfc demo appl
 	
 3. Open <code>**pfc_userparams.h** </code> (**pfc.X > Header Files**) in the project **pfc.X.**  
      - Ensure that the macros <code>**ENABLE_PFC</code>, <code>PFC_POWER_CONTROL</code>** are defined in the header file<code> **pfc_userparams.h.**</code>
-          <p align="left"><img  src="images/configParam.png"></p>
+          <p align="left">
+          <img  src="images/configParam1.png"></p>
+          <p align="left">
+          <img  src="images/configParam2.png"></p>
 
      - Ensure that the parameters values are set for dsPICDEM™ MCHV-3 Development Board.
 
