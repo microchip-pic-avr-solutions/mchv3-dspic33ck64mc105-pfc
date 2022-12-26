@@ -44,20 +44,16 @@ Refer dsPICDEM™ MCHV-2 Development Board User’s Guide or dsPICDEM™ MCHV-3 
 1. Before making any connection, verify that the Development Board is not powered and it is fully discharged. This can be done by checking if Power on Status LED D13(Red) is off.
 
 2.  Open the top cover of the enclosure and set up the following jumpers (if they are not in specified positions):
-
-<p align="center">
-  <img src="images/jumpertable.PNG">
-</p>
+     <p align="left" >
+     <img src="images/jumpertable.PNG"></p>
 
 3.  Connect the wires from the DC load to terminals of connector, provided on the Development Board..</p>
-<p align="center">
-  <img src="images/motorconnection.PNG">
-</p>
+     <p align="left" >
+     <img src="images/loadConnection.PNG"></p>
 
 4.	Insert the ‘External Op Amp Configuration Matrix board’ into matrix board header J4. Ensure the matrix board is correctly oriented before proceeding.</p>
-<p align="center">
-  <img src="images/matrixboard.PNG">
-</p>
+     <p align="left" >
+     <img src="images/matrixboard.PNG"></p>
 
 > **Note:**</br>
 >Note: Rated current of the board in External op amp configuration is 21.3 A.
@@ -69,14 +65,12 @@ Refer dsPICDEM™ MCHV-2 Development Board User’s Guide or dsPICDEM™ MCHV-3 
 6. Close the top cover of the enclosure and secure it with screws.
 
 7. Power Cord Connection. Make sure the power cord is disconnected from the AC mains before connecting the female terminal of the power cable to the AC input connector J1 of the Development Board.
-<p align="center">
-  <img src="images/powercordconnection.PNG">
-</p>
+     <p align="left" >
+     <img src="images/powercordconnection.PNG"></p>
 
 8. To program the device, a mini-USB connection is required between Host PC and the Development Board. Connect a mini-USB cable from your computer to the mini-USB connector “PROGRAM/DEBUG” of the Development Board. The development board features a Built-in isolated Programmer or Debugguer (Microchip Starter Kit).
-<p align="center">
-  <img src="images/miniusbconnector.PNG">
-</p>
+     <p align="left" >
+     <img src="images/miniusbconnector.PNG"></p>
 
 9. Power up the Development Board by connecting power cord to the mains. To verify the unit is powered, make sure LEDs D6, D13, D16 and D18 are ON.
  
@@ -110,22 +104,24 @@ The firmware version needed for the demonstration is mentioned in the section [M
 Follow the below instructions, step by step, to set up and run the pfc demo application:
 
 1. Start **MPLAB X IDE** and open the project **pfc.X (File > Open Project)** with device selection **dsPIC33CK64MC105.**  
-    <p align="left">
-       <img  src="images/idedeviceselection.png"></p>
+     <p align="left" >
+     <img  src="images/idedeviceselection.png"></p>
   
 
 2. Set the project **pfc.X** as the main project by right-clicking on the project name and selecting **Set as Main Project** as shown. The project **pfc.X** will then appear in **bold.**
-    <p align="left">
+     <p align="left" >
      <img  src="images/ideprojectsetup.png"></p>
  
 
 	
 3. Open <code>**pfc_userparams.h** </code> (**pfc.X > Header Files**) in the project **pfc.X.**  
      - Ensure that the macros <code>**ENABLE_PFC</code>, <code>PFC_POWER_CONTROL</code>** are defined in the header file<code> **pfc_userparams.h.**</code>
-          <p align="left">
-          <img  src="images/configParam1.png"></p>
-          <p align="left">
-          <img  src="images/configParam2.png"></p>
+          <p align="left" >
+          <img  src="images/configParam1.png">
+          </p>
+          <p align="left" >
+          <img  src="images/configParam2.png">
+          </p>
 
      - Ensure that the parameters values are set for dsPICDEM™ MCHV-3 Development Board.
 
