@@ -102,14 +102,14 @@ Follow the below instructions, step by step, to set up and run the PFC demo appl
 
 2. Set the project **pfc.X** as the main project by right-clicking on the project name and selecting **Set as Main Project** as shown. The project **pfc.X** will then appear in **bold.**    
      <p align="left" >
-     <img  src="images/ideprojectsetup.png"></p>
+     <img  src="images/ideprojectsetup.PNG"></p>
 	
 3. Open <code>**pfc_userparams.h** </code> (**pfc.X > Header Files**) in the project **pfc.X.**  
      - Ensure that the macros <code>**ENABLE_PFC</code>, <code>PFC_POWER_CONTROL</code>** are defined in the header file<code> **pfc_userparams.h.**</code>         
           <p align="left" >
-          <img  src="images/configParam1.png"></p>
+          <img  src="images/configParam1.PNG"></p>
           <p align="left" >
-          <img  src="images/configParam2.png"></p>
+          <img  src="images/configParam2.PNG"></p>
 
      - Ensure that the parameters values are set for dsPICDEM™ MCHV-3 Development Board.
 > **Note:**</br>
@@ -128,15 +128,15 @@ Follow the below instructions, step by step, to set up and run the PFC demo appl
 
      - Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware.
           <p align="left">
-          <img  src="images/projectpropertiessettings.png"></p>
+          <img  src="images/projectpropertiessettings.PNG"></p>
 
 5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.              
      <p align="left">
-     <img  src="images/loadvariables.png"></p>
+     <img  src="images/loadvariables.PNG"></p>
 
 6. To build the project (in this case, **pfc.X**) and program the device dsPIC33CK64MC105, click **Make and Program Device Main project** on the toolbar
      <p align="left">
-     <img  src="images/deviceprogramming.png"></p> 
+     <img  src="images/deviceprogramming.PNG"></p> 
 
 ## 5.3  Data visualization through X2C-Scope Plug-in of MPLAB X
 
@@ -148,48 +148,48 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
 
 3. Open the **X2C-Scope** window by selecting **Tools>Embedded>X2CScope.**
      <p align="left">
-     <img  src="images/x2cselection.png"></p>
+     <img  src="images/x2cselection.PNG"></p>
 
 4. **In the X2C-Scope Configuration** window, open the **Connection Setup** tab and click **Select Project.** This opens the drop-down menu **Select Project** with a list of opened projects. Select the specific project **pfc** from the list of projects and click **OK**.    
     <p align="left">
-    <img  src="images/x2cprojectselection.png"></p>
+    <img  src="images/x2cprojectselection.PNG"></p>
 
 5. To configure and establish the serial communication for **X2C-Scope**, open the **X2CScope Configuration** window, click on the **Connection Setup** tab and:
      - Set **Baudrate** as **115200**, which is configured in the application firmware. 
      - Click on the **Refresh** button to refresh and update the list of the available Serial COM ports connected to the Host PC. 
      - Select the specific **Serial port** detected when interfaced with the dsPICDEM™ MCHV-3 Development Board. The **Serial port** depends on the system settings
           <p align="left">
-          <img  src="images/x2cconnectionsetup.png"></p>
+          <img  src="images/x2cconnectionsetup.PNG"></p>
  
 6. Once the **Serial port** is detected, click on **Disconnected** and turn to **Connected**, to establish serial communication between the Host PC and the board.
      <p align="left">
-     <img  src="images/x2cconnectionbutton.png"></p>
+     <img  src="images/x2cconnectionbutton.PNG"></p>
 
 
 7. Open the **Project Setup** tab in the **X2CScope Configuration** window and,
      - Set **Scope Sampletime** as the interval at which <code>X2CScopeUpdate()</code> is called. In this application, it is every <code>50µs.</code> 
      - Then, click **Set Values** to save the configuration.
           <p align="left">
-          <img  src="images/x2cprojectsetup.png"></p>
+          <img  src="images/x2cprojectsetup.PNG"></p>
 
 
 8. Click on **Open Scope View** (in the **Data Views** tab of the **X2CScope Configuration** Window); this opens **Scope Window.**
      <p align="left">
-     <img  src="images/x2cdataview.png"></p>
+     <img  src="images/x2cdataview.PNG"></p>
     	     
 9. In the **Scope Window**, select the variables that must be watched. To do this, click on the **Source** against each channel, and a window **Select Variables** opens on the screen. From the available list, the required variable can be chosen. Ensure checkboxes **Enable** and **Visible** are checked for the variables to be plotted.
 To view data plots continuously, uncheck **Single-shot.** When **Single-shot** is checked, it captures the data once and stops. The **Sample time factor** value multiplied by **Sample time** decides the time difference between any two consecutive data points on the plot.
     <p align="left">
-    <img  src="images/x2cdatapointselection.png"></p>
+    <img  src="images/x2cdatapointselection.PNG"></p>
 
 10.	Click on **SAMPLE**, then the X2C-Scope window plots variables in real-time, which updates automatically.
      <p align="left">
-     <img  src="images/x2csample.png"></p>
+     <img  src="images/x2csample.PNG"></p>
  
 
 11.	Click on **ABORT** to stop.
      <p align="left">
-     <img  src="images/x2cabort.png"></p>
+     <img  src="images/x2cabort.PNG"></p>
  
  ## 6. REFERENCES:
 For additional information, refer following documents or links.
