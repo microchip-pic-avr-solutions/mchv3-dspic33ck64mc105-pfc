@@ -106,10 +106,10 @@ Follow the below instructions, step by step, to set up and run the PFC demo appl
 	
 3. Open <code>**pfc_userparams.h** </code> (**pfc.X > Header Files**) in the project **pfc.X.**  
      - Ensure that the macros <code>**ENABLE_PFC</code>, <code>PFC_POWER_CONTROL</code>** are defined in the header file<code> **pfc_userparams.h.**</code>         
-     <p align="left" >
-     <img  src="images/configParam1.png"></p>
-     <p align="left" >
-     <img  src="images/configParam2.png"></p>
+          <p align="left" >
+          <img  src="images/configParam1.png"></p>
+          <p align="left" >
+          <img  src="images/configParam2.png"></p>
 
      - Ensure that the parameters values are set for dsPICDEM™ MCHV-3 Development Board.
 > **Note:**</br>
@@ -124,11 +124,11 @@ Follow the below instructions, step by step, to set up and run the PFC demo appl
      - Select the specific Device Family Pack (DFP) from the available list of **Packs.** In this case, **dsPIC33CK-MC_DFP 1.5.126** is selected. 
      - Select the specific **Compiler Toolchain** from the available list of **XC16** compilers. 
      In this case, **XC16(v2.00)** is selected.
-     - After selecting Hardware Tool and Compiler Toolchain, Device Pack, click the button **Apply**
+     - After selecting Hardware Tool and Compiler Toolchain, Device Pack, click the button **Apply**.
 
-     Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware.
-     <p align="left">
-     <img  src="images/projectpropertiessettings.png"></p>
+     - Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware.
+          <p align="left">
+          <img  src="images/projectpropertiessettings.png"></p>
 
 5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.              
      <p align="left">
@@ -149,9 +149,8 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
 3. Open the **X2C-Scope** window by selecting **Tools>Embedded>X2CScope.**
      <p align="left">
      <img  src="images/x2cselection.png"></p>
- 
 
-4. **In the X2C-Scope Configuration** window, open the **Connection Setup** tab and click **Select Project.** This opens the drop-down menu **Select Project** with a list of opened projects. Select the specific project **pfc** from the list of projects and click **OK.**    
+4. **In the X2C-Scope Configuration** window, open the **Connection Setup** tab and click **Select Project.** This opens the drop-down menu **Select Project** with a list of opened projects. Select the specific project **pfc** from the list of projects and click **OK**.    
     <p align="left">
     <img  src="images/x2cprojectselection.png"></p>
 
@@ -159,10 +158,9 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
      - Set **Baudrate** as **115200**, which is configured in the application firmware. 
      - Click on the **Refresh** button to refresh and update the list of the available Serial COM ports connected to the Host PC. 
      - Select the specific **Serial port** detected when interfaced with the dsPICDEM™ MCHV-3 Development Board. The **Serial port** depends on the system settings
-     <p align="left">
-     <img  src="images/x2cconnectionsetup.png"></p>
+          <p align="left">
+          <img  src="images/x2cconnectionsetup.png"></p>
  
-
 6. Once the **Serial port** is detected, click on **Disconnected** and turn to **Connected**, to establish serial communication between the Host PC and the board.
      <p align="left">
      <img  src="images/x2cconnectionbutton.png"></p>
@@ -171,11 +169,11 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
 7. Open the **Project Setup** tab in the **X2CScope Configuration** window and,
      - Set **Scope Sampletime** as the interval at which <code>X2CScopeUpdate()</code> is called. In this application, it is every <code>50µs.</code> 
      - Then, click **Set Values** to save the configuration.
-     <p align="left">
-     <img  src="images/x2cprojectsetup.png"></p>
+          <p align="left">
+          <img  src="images/x2cprojectsetup.png"></p>
 
 
-8.	Click on **Open Scope View** (in the **Data Views** tab of the **X2CScope Configuration** Window); this opens **Scope Window.**
+8. Click on **Open Scope View** (in the **Data Views** tab of the **X2CScope Configuration** Window); this opens **Scope Window.**
      <p align="left">
      <img  src="images/x2cdataview.png"></p>
     	     
