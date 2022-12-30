@@ -64,7 +64,7 @@ If the voltage is greater than 1V, wait until it is completely discharged and th
 
 9. To program the device, a mini-USB connection is required between Host PC and the Development Board. Connect a mini-USB cable from your computer to the mini-USB connector “PROGRAM/DEBUG” of the Development Board. The development board features a built-in isolated Programmer or Debugger.
      <p align="left" >
-     <img src="images/miniusbconnector.PNG"></p>
+     <img src="images/minibusconnector.PNG"></p>
 10. Plug the female terminal of the power cable to the AC input connector J1 and power-up the development board. To verify the unit is powered, make sure LEDs D6, D13, D16 and D18 are ON.
  
  </br>
