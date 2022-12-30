@@ -60,10 +60,7 @@ If the voltage is greater than 1V, wait until it is completely discharged and th
 
 7. Insert the dsPIC33CK64MC105 External Op-Amp Motor Control PIM into the PIM Socket U11 provided on the Development Board. Make sure the PIM is correctly placed and oriented before proceeding.
 
-
 8. Close the top cover of the enclosure and secure it with screws.
-
-
 
 9. To program the device, a mini-USB connection is required between Host PC and the Development Board. Connect a mini-USB cable from your computer to the mini-USB connector “PROGRAM/DEBUG” of the Development Board. The development board features a built-in isolated Programmer or Debugger.
      <p align="left" >
@@ -99,25 +96,18 @@ The firmware version needed for the demonstration is mentioned in the section [P
 ### 5.2 Basic Demonstration
 Follow the below instructions, step by step, to set up and run the PFC demo application:
 
-1. Start **MPLAB X IDE** and open the project **pfc.X (File > Open Project)** with device selection **dsPIC33CK64MC105.**  
-     
+1. Start **MPLAB X IDE** and open the project **pfc.X (File > Open Project)** with device selection **dsPIC33CK64MC105.**   
      <p align="left" >
-     <img  src="images/idedeviceselection.png"></p>
-  
+     <img src="images/idedeviceselection.PNG"></p> 
 
-2. Set the project **pfc.X** as the main project by right-clicking on the project name and selecting **Set as Main Project** as shown. The project **pfc.X** will then appear in **bold.**
-    
+2. Set the project **pfc.X** as the main project by right-clicking on the project name and selecting **Set as Main Project** as shown. The project **pfc.X** will then appear in **bold.**    
      <p align="left" >
      <img  src="images/ideprojectsetup.png"></p>
- 
-
 	
 3. Open <code>**pfc_userparams.h** </code> (**pfc.X > Header Files**) in the project **pfc.X.**  
-     - Ensure that the macros <code>**ENABLE_PFC</code>, <code>PFC_POWER_CONTROL</code>** are defined in the header file<code> **pfc_userparams.h.**</code>
-          
+     - Ensure that the macros <code>**ENABLE_PFC</code>, <code>PFC_POWER_CONTROL</code>** are defined in the header file<code> **pfc_userparams.h.**</code>         
      <p align="left" >
      <img  src="images/configParam1.png"></p>
-
      <p align="left" >
      <img  src="images/configParam2.png"></p>
 
@@ -136,18 +126,15 @@ Follow the below instructions, step by step, to set up and run the PFC demo appl
      In this case, **XC16(v2.00)** is selected.
      - After selecting Hardware Tool and Compiler Toolchain, Device Pack, click the button **Apply**
 
-     Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware
-
+     Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware.
      <p align="left">
      <img  src="images/projectpropertiessettings.png"></p>
 
-5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.       
-        
+5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.              
      <p align="left">
      <img  src="images/loadvariables.png"></p>
 
 6. To build the project (in this case, **pfc.X**) and program the device dsPIC33CK64MC105, click **Make and Program Device Main project** on the toolbar
-     
      <p align="left">
      <img  src="images/deviceprogramming.png"></p> 
 
@@ -157,17 +144,14 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
  
 1. To establish serial communication with the host PC, connect a micro-USB cable between the host PC and **connector J6** on the  dsPICDEM™ MCHV_3 Development Board.
 
-
 2. Ensure the application is configured and running as described under section [5.2 Basic Demonstration](#52-basic-demonstration) by following steps 1 through 8.
 
 3. Open the **X2C-Scope** window by selecting **Tools>Embedded>X2CScope.**
-     
      <p align="left">
      <img  src="images/x2cselection.png"></p>
  
 
-4. **In the X2C-Scope Configuration** window, open the **Connection Setup** tab and click **Select Project.** This opens the drop-down menu **Select Project** with a list of opened projects. Select the specific project **pfc** from the list of projects and click **OK.**
-    
+4. **In the X2C-Scope Configuration** window, open the **Connection Setup** tab and click **Select Project.** This opens the drop-down menu **Select Project** with a list of opened projects. Select the specific project **pfc** from the list of projects and click **OK.**    
     <p align="left">
     <img  src="images/x2cprojectselection.png"></p>
 
@@ -175,7 +159,6 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
      - Set **Baudrate** as **115200**, which is configured in the application firmware. 
      - Click on the **Refresh** button to refresh and update the list of the available Serial COM ports connected to the Host PC. 
      - Select the specific **Serial port** detected when interfaced with the dsPICDEM™ MCHV-3 Development Board. The **Serial port** depends on the system settings
-
      <p align="left">
      <img  src="images/x2cconnectionsetup.png"></p>
  
@@ -188,7 +171,6 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
 7. Open the **Project Setup** tab in the **X2CScope Configuration** window and,
      - Set **Scope Sampletime** as the interval at which <code>X2CScopeUpdate()</code> is called. In this application, it is every <code>50µs.</code> 
      - Then, click **Set Values** to save the configuration.
-
      <p align="left">
      <img  src="images/x2cprojectsetup.png"></p>
 
